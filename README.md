@@ -2,7 +2,7 @@
 
 ### 📚 All-in-One Online Learning & Digital Product Platform
 
-A full-featured, bilingual (🇧🇩 বাংলা + 🇬🇧 English) LMS and Digital Product Marketplace — combining **eLearning**, **Live Events**, and **Digital Product Sales** in one scalable system.
+A full-featured, bilingual LMS and Digital Product Marketplace — combining **eLearning**, **Live Events**, and **Digital Product Sales** in one scalable system.
 
 ---
 
@@ -192,9 +192,8 @@ AWS_SECRET_KEY=your_aws_secret
 STRIPE_SECRET_KEY=your_stripe_secret
 PAYPAL_CLIENT_ID=your_paypal_client_id
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Developed by: [Alok Roy]
-📧 Email: [alokroy602701@gmail.com
-]
+📧 Email: [alokroy602701@gmail.com]
 🌐 Website: https://alok-roy-dev.vercel.app

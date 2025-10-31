@@ -14,11 +14,11 @@ app.use(express.json());
 
 // API routes
 app.use("/api/v1", UserRoutes);
-app.use("/api/v1", AuthRoutes);  // /login
+app.use("/api/v1", AuthRoutes); // /login
 
 // test route
 app.get("/", (req: Request, res: Response) => {
-  res.send("🚀 LMS Server is Running");
+  res.send("LMS & Digital Product Sales Platform (Fullstack) 🚀");
 });
 
 // global error handler
@@ -26,5 +26,3 @@ app.use(globalErrorHandler);
 
 // not found handler
 app.use(notFound);
-
-

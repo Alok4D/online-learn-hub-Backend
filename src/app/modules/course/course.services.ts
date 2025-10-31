@@ -1,26 +1,41 @@
 import { ICourse } from "./course.interface";
 import { Course } from "./course.model";
 
-// Get all courses
-const getAllCourses = async () => await Course.find();
 
-// Get course by ID
-const getCourseById = async (id: string) => await Course.findById(id);
+const createCourse = async (payload: ICourse) => {
+  const course = await Course.create(payload);
+  return course;
+};
 
-// Create course
-const createCourse = async (payload: ICourse) => await Course.create(payload);
+const getAllCourses = async () => {
+  const courses = await Course.find({ isDeleted: false });
+  const total = await Course.countDocuments({ isDeleted: false });
+  return { data: courses, meta: { total } };
+};
 
-// Update course
-const updateCourse = async (id: string, payload: Partial<ICourse>) =>
-  await Course.findByIdAndUpdate(id, payload, { new: true });
+const getSingleCourse = async (id: string) => {
+  const course = await Course.findById(id);
+  return course;
+};
 
-// Delete course
-const deleteCourse = async (id: string) => await Course.findByIdAndDelete(id);
+const updateCourse = async (id: string, payload: Partial<ICourse>) => {
+  const updated = await Course.findByIdAndUpdate(id, payload, { new: true });
+  return updated;
+};
 
-export const courses = {
-  getAllCourses,
-  getCourseById,
+const deleteCourse = async (id: string) => {
+  const deleted = await Course.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    { new: true }
+  );
+  return deleted;
+};
+
+export const CourseServices = {
   createCourse,
+  getAllCourses,
+  getSingleCourse,
   updateCourse,
   deleteCourse,
 };

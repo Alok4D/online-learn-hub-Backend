@@ -1,13 +1,20 @@
-import express from "express";
-import { courseController } from "./course.controller";
+import { Router } from "express";
+import { checkAuth } from "../../middleware/checkAuth";
+import { Role } from "../user/user.interface";
+import validateRequest from "../../middleware/validateRequest";
+import { createCourseSchema, updateCourseSchema } from "./course.validation";
+import { CourseControllers } from "./course.controller";
 
-const router = express.Router();
 
-// Base URL: /api/courses
-router.get("/", courseController.getAllCoursesController);
-router.get("/:id", courseController.getCourseByIdController);
-router.post("/", courseController.createCourseController);
-router.put("/:id", courseController.updateCourseController);
-router.delete("/:id", courseController.deleteCourseController);
+const router = Router();
+
+// Admin-only routes with validation
+router.post("/", checkAuth(Role.ADMIN), validateRequest(createCourseSchema), CourseControllers.createCourse);
+router.put("/:id", checkAuth(Role.ADMIN), validateRequest(updateCourseSchema), CourseControllers.updateCourse);
+router.delete("/:id", checkAuth(Role.ADMIN), CourseControllers.deleteCourse);
+
+// Public routes
+router.get("/", CourseControllers.getAllCourses);
+router.get("/:id", CourseControllers.getSingleCourse);
 
 export const courseRoutes = router;

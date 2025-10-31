@@ -20,10 +20,11 @@ const getAllUsers = async () => {
     const totalUsers = await User.countDocuments();
 
     return {
-        data: users,
         meta: {
             total: totalUsers
-        }
+        },
+        data: users,
+      
     }
 }
 

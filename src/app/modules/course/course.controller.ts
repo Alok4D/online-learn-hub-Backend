@@ -1,64 +1,63 @@
 import { Request, Response } from "express";
-import { courses } from "./course.services";
 
+import httpStatus from "http-status-codes";
+import catchAsync from "../../utlis/catchAsync";
+import { CourseServices } from "./course.services";
+import sendResponse from "../../utlis/sendResponse";
 
-// Get all courses
-const getAllCoursesController = async (req: Request, res: Response) => {
-  try {
-    const result = await courses.getAllCourses();
-    res.status(200).json({ success: true, data: result });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Server Error", error });
-  }
-};
+const createCourse = catchAsync(async (req: Request, res: Response) => {
+  const result = await CourseServices.createCourse(req.body);
+   res.status(httpStatus.CREATED).json({
+      success: true,
+      message: "Course created successfully!",
+      result,
+    });
+});
 
-// Get single course
-const getCourseByIdController = async (req: Request, res: Response) => {
-  try {
-    const course = await courses.getCourseById(req.params.id);
-    if (!course) return res.status(404).json({ success: false, message: "Course not found" });
-    res.status(200).json({ success: true, data: course });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch course" });
-  }
-};
+const getAllCourses = catchAsync(async (req: Request, res: Response) => {
+  const result = await CourseServices.getAllCourses();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "All courses retrieved successfully",
+    data: result,
+  });
+});
 
-// Create course
-const createCourseController = async (req: Request, res: Response) => {
-  try {
-    const course = await courses.createCourse(req.body);
-    res.status(201).json({ success: true, data: course });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to create course" });
-  }
-};
+const getSingleCourse = catchAsync(async (req: Request, res: Response) => {
+  const result = await CourseServices.getSingleCourse(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Course retrieved successfully",
+    data: result,
+  });
+});
 
-// Update course
-const updateCourseController = async (req: Request, res: Response) => {
-  try {
-    const course = await courses.updateCourse(req.params.id, req.body);
-    if (!course) return res.status(404).json({ success: false, message: "Course not found" });
-    res.status(200).json({ success: true, data: course });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to update course" });
-  }
-};
+const updateCourse = catchAsync(async (req: Request, res: Response) => {
+  const result = await CourseServices.updateCourse(req.params.id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Course updated successfully",
+    data: result,
+  });
+});
 
-// Delete course
-const deleteCourseController = async (req: Request, res: Response) => {
-  try {
-    const course = await courses.deleteCourse(req.params.id);
-    if (!course) return res.status(404).json({ success: false, message: "Course not found" });
-    res.status(200).json({ success: true, message: "Course deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to delete course" });
-  }
-};
+const deleteCourse = catchAsync(async (req: Request, res: Response) => {
+  const result = await CourseServices.deleteCourse(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Course deleted successfully",
+    data: result,
+  });
+});
 
-export const courseController = {
-  getAllCoursesController,
-  getCourseByIdController,
-  createCourseController,
-  updateCourseController,
-  deleteCourseController,
+export const CourseControllers = {
+  createCourse,
+  getAllCourses,
+  getSingleCourse,
+  updateCourse,
+  deleteCourse,
 };

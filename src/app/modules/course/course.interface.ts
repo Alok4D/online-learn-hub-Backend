@@ -1,26 +1,24 @@
 import { Types } from "mongoose";
 
+export enum CourseLevel {
+  BEGINNER = "Beginner",
+  INTERMEDIATE = "Intermediate",
+  ADVANCED = "Advanced",
+}
+
 export interface ICourse {
-  courseId: string;
+  _id?: Types.ObjectId;
   title: string;
-  slug: string;
-  category: Types.ObjectId;
-  Types: string;
-  image: string;
-  fee: string;
-  rating: number;
-  totalRating: number;
-  totalStudentEnroll: number;
-  mentor: Types.ObjectId;
-  courseStart: string;
-  duration: number;
-  lectures: number;
-  totalExam: number;
-  totalProject: number;
-  courseDetails: string;
-  courseOverview: string;
-  curriculums: string[];
-  courseIncludes: string[];
-  softwareIncludes: string[];
-  jobOption: string[];
+  description: string;
+  category: string;
+  price: number;
+  level: CourseLevel;
+  duration: string; // e.g., "3h 20m" or "10 weeks"
+  videoUrls: string[]; // pre-recorded video URLs
+  resources?: string[]; // PDF or other files
+  coupon?: string;
+  discount?: number;
+  isDeleted?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

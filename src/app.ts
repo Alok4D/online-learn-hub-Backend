@@ -5,6 +5,7 @@ import notFound from "./app/middleware/notFound";
 import cors from "cors";
 import { UserRoutes } from "./app/modules/user/user.route";
 import { AuthRoutes } from "./app/auth/auth.route";
+import router from "./app/routes";
 
 export const app: Application = express();
 
@@ -15,6 +16,9 @@ app.use(express.json());
 // API routes
 app.use("/api/v1", UserRoutes);
 app.use("/api/v1", AuthRoutes); // /login
+
+// সব module route একসাথে attach করা হলো
+app.use("/api/v1", router);
 
 // test route
 app.get("/", (req: Request, res: Response) => {

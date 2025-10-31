@@ -1,29 +1,22 @@
-import { model, Schema } from "mongoose";
-import { ICourse } from "./course.interface";
+import { Schema, model } from "mongoose";
+import { CourseLevel, ICourse } from "./course.interface";
 
-const courseSchema = new Schema<ICourse>({
-  courseId: { type: String, required: true },
-  title: { type: String, required: true },
-  slug: { type: String, required: true },
-  category: { type: Schema.Types.ObjectId, required: true },
-  Types: { type: String, required: true },
-  image: { type: String, required: true },
-  fee: { type: String, required: true },
-  rating: { type: Number, required: true },
-  totalRating: { type: Number, required: true },
-  totalStudentEnroll: { type: Number, required: true },
-  mentor: { type: Schema.Types.ObjectId, required: true },
-  courseStart: { type: String, required: true },
-  duration: { type: Number, required: true },
-  lectures: { type: Number, required: true },
-  totalExam: { type: Number, required: true },
-  totalProject: { type: Number, required: true },
-  courseDetails: { type: String, required: true },
-  courseOverview: { type: String, required: true },
-  curriculums: { type: [String], required: true },
-  courseIncludes: { type: [String], required: true },
-  softwareIncludes: { type: [String], required: true },
-  jobOption: { type: [String], required: true },
-});
+
+const courseSchema = new Schema<ICourse>(
+  {
+    title: { type: String, required: true, trim: true },
+    description: { type: String, required: true },
+    category: { type: String, required: true },
+    price: { type: Number, required: true },
+    level: { type: String, enum: Object.values(CourseLevel), default: CourseLevel.BEGINNER },
+    duration: { type: String, required: true },
+    videoUrls: { type: [String], default: [] },
+    resources: { type: [String], default: [] },
+    coupon: { type: String },
+    discount: { type: Number, default: 0 },
+    isDeleted: { type: Boolean, default: false },
+  },
+  { timestamps: true, versionKey: false }
+);
 
 export const Course = model<ICourse>("Course", courseSchema);

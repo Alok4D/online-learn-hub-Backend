@@ -1,5 +1,5 @@
-import { IDigitalProduct } from "./digitalProduct.interface";
 import { DigitalProduct } from "./digitalProduct.model";
+import { IDigitalProduct } from "./digitalProduct.interface";
 
 const createProduct = async (payload: IDigitalProduct) => {
   const product = await DigitalProduct.create(payload);
@@ -8,10 +8,11 @@ const createProduct = async (payload: IDigitalProduct) => {
 
 const getAllProducts = async () => {
   const products = await DigitalProduct.find({});
-  const total = await DigitalProduct.countDocuments();
+  const totalProducts = await DigitalProduct.countDocuments();
+
   return {
     data: products,
-    meta: { total }
+    meta: { total: totalProducts },
   };
 };
 

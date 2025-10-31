@@ -6,6 +6,8 @@ import cors from "cors";
 import { UserRoutes } from "./app/modules/user/user.route";
 import { AuthRoutes } from "./app/auth/auth.route";
 import router from "./app/routes";
+import { DigitalProductRoutes } from "./app/modules/product/digitalProduct.route";
+import { EventRoutes } from "./app/modules/event/event.route";
 
 export const app: Application = express();
 
@@ -19,6 +21,8 @@ app.use("/api/v1", AuthRoutes); // /login
 
 // সব module route একসাথে attach করা হলো
 app.use("/api/v1", router);
+
+
 
 // test route
 app.get("/", (req: Request, res: Response) => {

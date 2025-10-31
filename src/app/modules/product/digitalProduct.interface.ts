@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
 
-export enum DigitalProductCategory {
+export enum Category {
   CHROME_EXTENSION = "Chrome Extension",
   SOFTWARE_PLUGIN = "Software Plugin",
   WORDPRESS_PLUGIN = "WordPress Plugin",
-  EBOOK = "E-book",
+  E_BOOK = "E-book",
   OTHER = "Other",
 }
 
@@ -12,7 +12,7 @@ export interface IDigitalProduct {
   _id?: Types.ObjectId;
   name: string;
   description: string;
-  category: DigitalProductCategory;
+  category: Category;
   price: number;
   fileUrl: string;
   licenseKey?: string;

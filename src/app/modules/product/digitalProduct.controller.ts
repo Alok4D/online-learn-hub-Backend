@@ -11,7 +11,7 @@ const createProduct = async (
     const product = await DigitalProductService.createProduct(req.body);
     res.status(httpStatus.CREATED).json({
       success: true,
-      message: "Digital product created successfully",
+      message: "Digital product created successfully!",
       data: product,
     });
   } catch (error) {

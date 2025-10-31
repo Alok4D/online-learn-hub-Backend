@@ -1,10 +1,11 @@
-export interface Certification {
-  certificationId: string;
-  name: string;
-  image: string;
-  phoneNumber: string;
-  email: string;
-  studentId: string;
-  courseName: string;
-  batchName: string;
+import { Types } from "mongoose";
+
+export interface ICertificate {
+  _id?: Types.ObjectId;
+  studentId: Types.ObjectId;
+  courseId: Types.ObjectId;
+  examScore: number;
+  issuedAt?: Date;
+  approvedByAdmin?: boolean;
+  pdfUrl?: string; // URL to generated PDF
 }

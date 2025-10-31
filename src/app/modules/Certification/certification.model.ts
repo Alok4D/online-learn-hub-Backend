@@ -1,18 +1,18 @@
-import { model, Schema } from "mongoose";
-import { Certification } from "./certification.interface";
+import { Schema, model } from "mongoose";
+import { ICertificate } from "./certification.interface";
 
-const certificationSchema = new Schema<Certification>({
-  certificationId: { type: String, required: true, unique: true },
-  name: { type: String, required: true, trim: true },
-  image: { type: String },
-  phoneNumber: { type: String, required: true },
-  email: { type: String, required: true, unique: true, lowercase: true },
-  studentId: { type: String, required: true, unique: true },
-  courseName: { type: String, required: true },
-  batchName: { type: String, required: true },
-});
 
-export const certification = model<Certification>(
-  "certification",
-  certificationSchema
+const certificateSchema = new Schema<ICertificate>(
+  {
+    studentId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    courseId: { type: Schema.Types.ObjectId, ref: "Course", required: true },
+    examScore: { type: Number, required: true },
+    approvedByAdmin: { type: Boolean, default: false },
+    pdfUrl: { type: String },
+  },
+  { timestamps: true,
+    versionKey: false,
+   }
 );
+
+export const Certificate = model<ICertificate>("Certificate", certificateSchema);
